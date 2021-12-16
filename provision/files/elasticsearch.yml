@@ -1,0 +1,29 @@
+# ======================== Elasticsearch Configuration =========================
+
+# ---------------------------------- Cluster -----------------------------------
+#
+cluster.name: athena
+#
+# ------------------------------------ Node ------------------------------------
+#
+node.roles: [ master, data, ingest, transform ]
+# ----------------------------------- Paths ------------------------------------
+#
+path.data: /var/lib/elasticsearch
+path.logs: /var/log/elasticsearch
+#
+# ---------------------------------- Network -----------------------------------
+#
+network.host: _eth1_
+http.port: 9200
+#
+# --------------------------------- Discovery ----------------------------------
+#
+discovery.seed_hosts: ["elastic01","elastic02","elastic03"]
+cluster.initial_master_nodes: ["elastic01"]
+#
+# --------------------------------- X-Pack -------------------------------------
+#
+xpack.license.self_generated.type: basic
+xpack.monitoring.enabled: true
+xpack.monitoring.collection.enabled: true

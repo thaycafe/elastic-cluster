@@ -1,0 +1,18 @@
+---
+- hosts: all
+  tasks:
+    - name: Instalando o Elasticsearch
+      apt:
+        name: elasticsearch
+        update_cache: yes
+  
+    - name: Garantindo configuração
+      copy:
+        src: files/elasticsearch.yml
+        dest: /etc/elasticsearch/elasticsearch.yml
+
+    - name: Habilitando e Iniciando serviço
+      service:
+        name: elasticsearch
+        state: started
+        enabled: yes

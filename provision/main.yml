@@ -1,0 +1,27 @@
+---
+- hosts: all
+  tasks:
+    - name: Garantindo /etc/hosts
+      lineinfile:
+        path: /etc/hosts
+        line: "{{ item }}"
+      with_items:
+        - 192.168.63.10 elastic01 elastic01.athena.lab
+        - 192.168.63.11 elastic02 elastic02.athena.lab
+        - 192.168.63.12 elastic03 elastic03.athena.lab
+        - 192.168.63.13 kibana.athena.lab
+
+    - name: Instalando dependencias
+      apt:
+        name: "{{ item }}"
+        update_cache: yes
+      with_items:
+        - vim 
+        - apt-transport-https
+        - default-jre
+
+    - name: Instalando a chave publica do repositório
+      shell: 'wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -'
+
+    - name: Garantindo o repositório
+      shell: 'echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | tee /etc/apt/sources.list.d/elastic-7.x.list'

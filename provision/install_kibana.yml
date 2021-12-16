@@ -1,0 +1,18 @@
+---
+- hosts: all
+  tasks:
+    - name: Instalando Kibana
+      apt:
+        name: kibana
+        update_cache: yes
+
+    - name: Garantindo configuração
+      copy:
+        src: files/kibana.yml
+        dest: /etc/kibana/kibana.yml
+
+    - name: Habilitando e Inciando serviço
+      service: 
+        name: kibana
+        state: started
+        enabled: yes
